@@ -1,5 +1,9 @@
 package guru.qa;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.attribute;
@@ -7,10 +11,14 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GitWikiPageTest {
-
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = "1920x1080";
+        Configuration.pageLoadStrategy = "eager";
+    }
     @Test
     void EnableSoftAssertionsPage() {
-
         // Open GitHub main page
         open("https://github.com/");
 
@@ -23,16 +31,18 @@ public class GitWikiPageTest {
         $("ul.UnderlineNav-body a#wiki-tab").click();
 
         //Enable SoftAssertions page
-        $(".markdown-body").$(byText("Soft assertions")).shouldHave(attribute("href","https://github.com/selenide/selenide/wiki/SoftAssertions"));
+        $(".markdown-body").$(byText("Soft assertions")).shouldHave(attribute("href", "https://github.com/selenide/selenide/wiki/SoftAssertions"));
 
         //Open SoftAssertions page
         $(".markdown-body").$(byText("Soft assertions")).click();
 
         //Check JUnit5 code example on SoftAssertions page
-        $(".markdown-body").$(byText("3. Using JUnit5 extend test class:"));
+//        $(".markdown-body").$(byText("3. Using JUnit5 extend test class:"));
 
 //        sleep(10000000);
-
-
+    }
+    @AfterAll
+    static void afterAll() {
+        Selenide.closeWebDriver();
     }
 }
