@@ -7,15 +7,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.attribute;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class GitWikiPageTest {
+public class GitWikiPageTest extends JUnit5Code {
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
+
     }
     @Test
     void EnableSoftAssertionsPage() {
@@ -37,9 +39,8 @@ public class GitWikiPageTest {
         $(".markdown-body").$(byText("Soft assertions")).click();
 
         //Check JUnit5 code example on SoftAssertions page
-//        $(".markdown-body").$(byText("3. Using JUnit5 extend test class:"));
+        $(".markdown-body").$(byText("3. Using JUnit5 extend test class:")).sibling(0).shouldHave(text(jUnit5ForTest));
 
-//        sleep(10000000);
     }
     @AfterAll
     static void afterAll() {
