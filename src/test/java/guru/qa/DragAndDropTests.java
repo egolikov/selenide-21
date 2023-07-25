@@ -30,6 +30,12 @@ public class DragAndDropTests {
     void dragAndDropCommand() {
         open("https://the-internet.herokuapp.com/drag_and_drop");
 
+        // Check column-a header before dragAndDropTo
+        $("#column-a header").shouldHave(text("A"));
+
+        // Check column-b header before dragAndDropTo
+        $("#column-b header").shouldHave(text("B"));
+
         // Test with dragAndDropTo working
         $("#column-a").dragAndDropTo($("#column-b"));
 
